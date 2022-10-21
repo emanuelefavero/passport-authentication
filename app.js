@@ -58,12 +58,15 @@ passport.use(
   })
 )
 
-// NOTE: Set up the passport-local session cookie to make sure the user is logged in
+// SerializeUser - decides which data of the user object should be stored in the session (id), and attaches it to the session object:
+// req.session.passport.user = {id: user.id}
 passport.serializeUser((user, done) => {
   done(null, user.id)
 })
+
+// SerializeUser - decides which data of the user object should be stored in the session (id), and attaches it to the session object:
+// req.session.passport.user = {id: user.id}
 passport.deserializeUser((id, done) => {
-  // Query mongo database to find the user, then return the user
   User.findById(id, (err, user) => {
     done(err, user)
   })
